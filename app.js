@@ -43,7 +43,7 @@ var imgElement = document.getElementById('item-pic');
 
 //event listener ON the actual image
 // element.src = Constructor.array
-imgElement.addEventListener('click', randomItems);
+imgElement.addEventListener('click', randomItem);
 
 // callback function when img is clicked:
 function randomItem() {
