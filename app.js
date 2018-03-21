@@ -63,7 +63,6 @@ var lastDisplayed = [];
 
 function randomImgs() {
   //loop until currentImgs has a length of 3
-  var isUnique = true;
   // generating 3 random imgs
   var randomLeft = Math.floor(Math.random() * Product.allProducts.length);
   var randomMiddle = Math.floor(Math.random() * Product.allProducts.length);
@@ -85,7 +84,7 @@ function randomImgs() {
   leftImg.src = Product.allProducts[randomLeft].filepath;
   leftImg.alt = Product.allProducts[randomLeft].name;
 
-  middleImg.src = Product.allProducts[randomMiddle].filpath;
+  middleImg.src = Product.allProducts[randomMiddle].filepath;
   middleImg.alt = Product.allProducts[randomMiddle].name;
 
   rightImg.src = Product.allProducts[randomRight].filepath;
@@ -98,9 +97,9 @@ function randomImgs() {
 
   //keeping track of previously displayed imgs
   lastDisplayed = [];
-  Product.lastDisplayed.push(randomLeft);
-  Product.lastDisplayed.push(randomMiddle);
-  Product.lastDisplayed.push(randomRight);
+  lastDisplayed.push(randomLeft);
+  lastDisplayed.push(randomMiddle);
+  lastDisplayed.push(randomRight);
 }
 
 // new function! for click events
@@ -141,4 +140,55 @@ function handleClick(event) {
 
 function showResults() {
   // create list items to display the numbers
+  for (var i in Product.allProducts) {
+    // 1. target/create the element (li)
+    var listItemElement = document.createElement('li');
+
+    // 2. give the li content
+    listItemElement.textContent = Product.allProducts[i].name + ' has ' + Product.allProducts[i].votes + ' votes and was on screen ' + Product.allProducts[i].timesDisplayed + ' times.';
+
+    // 3. append element to parent
+    ulElement.appendChild(listItemElement);
+  }
+}
+
+function updateVotes() {
+  for (var i in Product.allProducts) {
+    productVotes[i] = Product.allProducts[i].votes;
+  }
+}
+
+// NOW add event listener to the selection
+sectionElement.addEventListener('click', handleClick);
+
+// rendering some imgs on page load
+randomImgs();
+
+// use Chart.js to create a bar chart
+function renderChart() {
+  // access the canvas element from the DOM
+  var context = document.getElementById('product-chart');
+
+  var arrayOfColors = ['rgba(240, 240, 245, 25)', 'rgba(230, 230, 255, 25)', 'rgba(204, 204, 255, 25)', 'rgba(179, 179, 255, 25)', 'rgba(153, 153, 255, 25)', 'rgba(128, 128, 255, 25)', 'rgba(102, 102, 255, 25)', 'rgba(77, 77, 255, 25)', 'rgba(51, 51, 255, 25)', 'rgba(26, 26, 255, 25)', 'rgba(0, 0, 255, 25)', 'rgba(0, 0, 230, 25)', 'rgba(0, 0, 204, 25)', 'rgba(0, 0, 179, 25)', 'rgba(0, 0, 153, 25)', 'rgba(0, 0, 128, 25)', 'rgba(0, 0, 102, 25)', 'rgba(0, 0, 77, 25)', 'rgba(0, 0, 51, 25)', 'rgba(0, 0, 26, 25)', 'rgba(0, 0, 0, 25)'];
+
+  new Chart(context, {
+    type: 'bar',
+    data: {
+      labels: productNames, //array of product names populated above
+      datasets: [{
+        label: 'Votes per Product',
+        data: productVotes,
+        backgroundColor: arrayOfColors,
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
 }
