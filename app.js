@@ -5,7 +5,6 @@
 // this array is also connected to the constructor
 Product.allProducts = [];
 
-
 // array keeping track of [product names]
 var productNames = [];
 
@@ -26,17 +25,50 @@ var sectionElement = document.getElementById('product-section');
 // access the ul element from the DOM
 var ulElement = document.getElementById('results');
 
-// make the constructor for the Product
-function Product(filepath, name) {
-  this.filepath = filepath;
-  this.name = name;
-  this.timesDisplayed = 0;
-  this.votes = 0;
-  Product.allProducts.push(this);
-  productNames.push(this.name);
-}
 
-//new instances of the Product
+// When to store :
+// Immediately
+//    Pro: they are there for next time
+//    Con: Zeros
+// At the very end
+//    Pro: stores all the values of clicks and views
+//    Con: Potential data not captured
+// After a load / click
+//    Pro: consistent and accurate data
+//    Con: potential scale issue (huge data)
+//            Chatter
+
+function setupPictures() {
+
+  var picsAsString = localStorage.getItem('product-section');
+  var usablePics = JSON.parse(picsAsString);
+  if (usablePics && usablePics.length) {
+    Product.allProducts = usablePics;
+    console.log('loaded from local storage :D');
+    return;
+  }
+  console.log('the hard way');
+  new Product('imgs/bag.jpg', 'R2D2 bag');
+  new Product('imgs/banana.jpg', 'banana cutter');
+  new Product('imgs/bathroom.jpg', 'tp and iPad stand');
+  new Product('imgs/boots.jpg', 'pointless boots');
+  new Product('imgs/breakfast.jpg', 'all-at-once breaky');
+  new Product('imgs/bubblegum.jpg', 'meatball gum');
+  new Product('imgs/chair.jpg', 'hurtful chair');
+  new Product('imgs/cthulhu.jpg', 'cthulhu');
+  new Product('imgs/dog-duck.jpg', 'dog-duck');
+  new Product('imgs/dragon.jpg', 'dragon.jpg');
+  new Product('imgs/pen.jpg', 'u-pen-cils');
+  new Product('imgs/pet-sweep.jpg', 'pawsweeper');
+  new Product('imgs/scissors.jpg', 'pizza scizzors');
+  new Product('imgs/shark.jpg', 'sharkling bag');
+  new Product('imgs/sweep.png', 'sweeper baby');
+  new Product('imgs/tauntaun.jpg', 'tauntaun bed');
+  new Product('imgs/unicorn.jpg', 'can-nicorn');
+  new Product('imgs/usb.gif', 'tentacle usb');
+  new Product('imgs/water-can.jpg', 'water-can can water');
+  new Product('imgs/wine-glass.jpg', 'quirky wine glass');
+}
 new Product('imgs/bag.jpg', 'R2D2 bag');
 new Product('imgs/banana.jpg', 'banana cutter');
 new Product('imgs/bathroom.jpg', 'tp and iPad stand');
@@ -57,6 +89,19 @@ new Product('imgs/unicorn.jpg', 'can-nicorn');
 new Product('imgs/usb.gif', 'tentacle usb');
 new Product('imgs/water-can.jpg', 'water-can can water');
 new Product('imgs/wine-glass.jpg', 'quirky wine glass');
+
+
+
+// make the constructor for the Product
+function Product(filepath, name) {
+  this.filepath = filepath;
+  this.name = name;
+  this.timesDisplayed = 0;
+  this.votes = 0;
+  Product.allProducts.push(this);
+  productNames.push(this.name);
+}
+
 
 // array to keep track of the previously displayed imgs
 var lastDisplayed = [];
@@ -132,10 +177,15 @@ function handleClick(event) {
     // display the chart
     renderChart();
 
+    // save to LS
+    var savePictures = JSON.stringify(Product.allProducts);
+    localStorage.setItem('product-section', savePictures);
+
   } else {
     // if less than 25
     randomImgs();
   }
+
 }
 
 function showResults() {
@@ -166,6 +216,11 @@ randomImgs();
 
 // use Chart.js to create a bar chart
 function renderChart() {
+
+  // var voteData = [];
+
+
+
   // access the canvas element from the DOM
   var context = document.getElementById('product-chart');
 
@@ -192,3 +247,6 @@ function renderChart() {
     }
   });
 }
+
+
+setupPictures();
