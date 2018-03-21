@@ -217,10 +217,6 @@ randomImgs();
 // use Chart.js to create a bar chart
 function renderChart() {
 
-  // var voteData = [];
-
-
-
   // access the canvas element from the DOM
   var context = document.getElementById('product-chart');
 
