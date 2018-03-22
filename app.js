@@ -169,7 +169,7 @@ function handleClick(event) {
     sectionElement.removeEventListener('click', handleClick);
 
     // if greater than 9 display the results as a list
-    showResults();
+    // showResults();
 
     // updates the votes per img for the chart
     updateVotes();
@@ -187,20 +187,20 @@ function handleClick(event) {
   }
 
 }
+//Saving, in case I want this later
+// function showResults() {
+//   // create list items to display the numbers
+//   for (var i in Product.allProducts) {
+//     // 1. target/create the element (li)
+//     var listItemElement = document.createElement('li');
 
-function showResults() {
-  // create list items to display the numbers
-  for (var i in Product.allProducts) {
-    // 1. target/create the element (li)
-    var listItemElement = document.createElement('li');
+//     // 2. give the li content
+//     listItemElement.textContent = Product.allProducts[i].name + ' has ' + Product.allProducts[i].votes + ' votes and was on screen ' + Product.allProducts[i].timesDisplayed + ' times.';
 
-    // 2. give the li content
-    listItemElement.textContent = Product.allProducts[i].name + ' has ' + Product.allProducts[i].votes + ' votes and was on screen ' + Product.allProducts[i].timesDisplayed + ' times.';
-
-    // 3. append element to parent
-    ulElement.appendChild(listItemElement);
-  }
-}
+//     // 3. append element to parent
+//     ulElement.appendChild(listItemElement);
+//   }
+// }
 
 function updateVotes() {
   for (var i in Product.allProducts) {
