@@ -46,31 +46,30 @@ function setupPictures() {
   if (usablePics && usablePics.length) {
     Product.allProducts = usablePics;
     console.log('loaded from local storage :D');
-    return;
-  } else {
-    console.log('the hard way');
-    new Product('imgs/bag.jpg', 'R2D2 bag');
-    new Product('imgs/banana.jpg', 'banana cutter');
-    new Product('imgs/bathroom.jpg', 'tp and iPad stand');
-    new Product('imgs/boots.jpg', 'pointless boots');
-    new Product('imgs/breakfast.jpg', 'all-at-once breaky');
-    new Product('imgs/bubblegum.jpg', 'meatball gum');
-    new Product('imgs/chair.jpg', 'hurtful chair');
-    new Product('imgs/cthulhu.jpg', 'cthulhu');
-    new Product('imgs/dog-duck.jpg', 'dog-duck');
-    new Product('imgs/dragon.jpg', 'dragon.jpg');
-    new Product('imgs/pen.jpg', 'u-pen-cils');
-    new Product('imgs/pet-sweep.jpg', 'pawsweeper');
-    new Product('imgs/scissors.jpg', 'pizza scizzors');
-    new Product('imgs/shark.jpg', 'sharkling bag');
-    new Product('imgs/sweep.png', 'sweeper baby');
-    new Product('imgs/tauntaun.jpg', 'tauntaun bed');
-    new Product('imgs/unicorn.jpg', 'can-nicorn');
-    new Product('imgs/usb.gif', 'tentacle usb');
-    new Product('imgs/water-can.jpg', 'water-can can water');
-    new Product('imgs/wine-glass.jpg', 'quirky wine glass');
   }
 }
+
+//making new indices
+new Product('imgs/bag.jpg', 'R2D2 bag');
+new Product('imgs/banana.jpg', 'banana cutter');
+new Product('imgs/bathroom.jpg', 'tp and iPad stand');
+new Product('imgs/boots.jpg', 'pointless boots');
+new Product('imgs/breakfast.jpg', 'all-at-once breaky');
+new Product('imgs/bubblegum.jpg', 'meatball gum');
+new Product('imgs/chair.jpg', 'hurtful chair');
+new Product('imgs/cthulhu.jpg', 'cthulhu');
+new Product('imgs/dog-duck.jpg', 'dog-duck');
+new Product('imgs/dragon.jpg', 'dragon.jpg');
+new Product('imgs/pen.jpg', 'u-pen-cils');
+new Product('imgs/pet-sweep.jpg', 'pawsweeper');
+new Product('imgs/scissors.jpg', 'pizza scizzors');
+new Product('imgs/shark.jpg', 'sharkling bag');
+new Product('imgs/sweep.png', 'sweeper baby');
+new Product('imgs/tauntaun.jpg', 'tauntaun bed');
+new Product('imgs/unicorn.jpg', 'can-nicorn');
+new Product('imgs/usb.gif', 'tentacle usb');
+new Product('imgs/water-can.jpg', 'water-can can water');
+new Product('imgs/wine-glass.jpg', 'quirky wine glass');
 
 // make the constructor for the Product
 function Product(filepath, name) {
@@ -143,8 +142,6 @@ function handleClick(event) {
     if (event.target.alt === Product.allProducts[i].name) {
       Product.allProducts[i].votes++;
     }
-
-    setupPictures();
   }
 
   //check the click counter
@@ -227,3 +224,4 @@ function renderChart() {
     }
   });
 }
+setupPictures();
