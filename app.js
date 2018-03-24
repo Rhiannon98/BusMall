@@ -22,9 +22,8 @@ var rightImg = document.getElementById('rightImg');
 // access section element from the DOM
 var sectionElement = document.getElementById('product-section');
 
-// access the ul element from the DOM
-var ulElement = document.getElementById('results');
-
+// // access the ul element from the DOM
+// var ulElement = document.getElementById('results');
 
 // When to store :
 // Immediately
@@ -38,6 +37,8 @@ var ulElement = document.getElementById('results');
 //    Con: potential scale issue (huge data)
 //            Chatter
 
+
+// Now saving to Local Storage
 function setupPictures() {
 
   var picsAsString = localStorage.getItem('product-section');
@@ -45,30 +46,10 @@ function setupPictures() {
   if (usablePics && usablePics.length) {
     Product.allProducts = usablePics;
     console.log('loaded from local storage :D');
-    return;
   }
-  console.log('the hard way');
-  new Product('imgs/bag.jpg', 'R2D2 bag');
-  new Product('imgs/banana.jpg', 'banana cutter');
-  new Product('imgs/bathroom.jpg', 'tp and iPad stand');
-  new Product('imgs/boots.jpg', 'pointless boots');
-  new Product('imgs/breakfast.jpg', 'all-at-once breaky');
-  new Product('imgs/bubblegum.jpg', 'meatball gum');
-  new Product('imgs/chair.jpg', 'hurtful chair');
-  new Product('imgs/cthulhu.jpg', 'cthulhu');
-  new Product('imgs/dog-duck.jpg', 'dog-duck');
-  new Product('imgs/dragon.jpg', 'dragon.jpg');
-  new Product('imgs/pen.jpg', 'u-pen-cils');
-  new Product('imgs/pet-sweep.jpg', 'pawsweeper');
-  new Product('imgs/scissors.jpg', 'pizza scizzors');
-  new Product('imgs/shark.jpg', 'sharkling bag');
-  new Product('imgs/sweep.png', 'sweeper baby');
-  new Product('imgs/tauntaun.jpg', 'tauntaun bed');
-  new Product('imgs/unicorn.jpg', 'can-nicorn');
-  new Product('imgs/usb.gif', 'tentacle usb');
-  new Product('imgs/water-can.jpg', 'water-can can water');
-  new Product('imgs/wine-glass.jpg', 'quirky wine glass');
 }
+
+//making new indices
 new Product('imgs/bag.jpg', 'R2D2 bag');
 new Product('imgs/banana.jpg', 'banana cutter');
 new Product('imgs/bathroom.jpg', 'tp and iPad stand');
@@ -89,8 +70,6 @@ new Product('imgs/unicorn.jpg', 'can-nicorn');
 new Product('imgs/usb.gif', 'tentacle usb');
 new Product('imgs/water-can.jpg', 'water-can can water');
 new Product('imgs/wine-glass.jpg', 'quirky wine glass');
-
-
 
 // make the constructor for the Product
 function Product(filepath, name) {
@@ -119,6 +98,8 @@ function randomImgs() {
   // Condition 2: randomLeft already shown || randomMiddle already shown || randomRight already shown
 
   while (randomLeft === randomMiddle || randomMiddle === randomRight || randomLeft === randomRight || lastDisplayed.includes(randomLeft) || lastDisplayed.includes(randomMiddle) || lastDisplayed.includes(randomRight)) {
+
+    console.log('Duplicate Caught');
 
     randomLeft = Math.floor(Math.random() * Product.allProducts.length);
     randomMiddle = Math.floor(Math.random() * Product.allProducts.length);
@@ -243,6 +224,4 @@ function renderChart() {
     }
   });
 }
-
-
 setupPictures();
